@@ -1,4 +1,20 @@
 class UsersController < ApplicationController
+
+  def create
+    auth_hash = request.env["omniauth.auth"]
+    user = User.find_by(uid: auth_hash[:uid],
+                        provider: params[:provider])
+
+    if user
+      flash[:notice] = "Existing use #{user.username} is logged in."
+    else
+
+    end
+
+    session[:user_id] = user.id
+    redirect_to root_path
+  end
+
   def index
     @users = User.all
   end
