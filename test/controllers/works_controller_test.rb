@@ -3,6 +3,10 @@ require "test_helper"
 describe WorksController do
   let(:existing_work) { works(:album) }
 
+  before do
+    perform_login
+  end
+
   describe "root" do
     it "succeeds with all media types" do
       get root_path
